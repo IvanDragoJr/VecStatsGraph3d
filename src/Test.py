@@ -5,7 +5,7 @@ from src.FileManager import FileManager
 from src.graphs.DrawDensity import DrawDensity
 
 fileManager = FileManager()
-fileManager.loadData()
+fileManager.load_data()
 dat = fileManager.loadData3D(fileManager.get_vectorsMatrix())
 draw_density = DrawDensity()
 

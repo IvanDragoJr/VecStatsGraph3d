@@ -27,7 +27,7 @@ class FileManager:
     def set_fixedVectorMatrix(self, fixedVectorMatrix):
         self.__fixedVectorsMatrix = fixedVectorMatrix
 
-    def loadData(self):
+    def load_data(self):
         path = '/home/pedro/PycharmProjects/test2.7/test/XYZcoor.txt'
 
         vectorsArray = []
