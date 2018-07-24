@@ -4,6 +4,8 @@ import itertools
 
 import numpy as np
 
+from src.util.ArithmeticUtil import ArithmeticUtil
+
 
 class FileManager:
 
@@ -117,8 +119,8 @@ class FileManager:
             i += 1
         # TODO colatitud y latitud negativa
 
-        colatitude = self.toSexagesimal3D(colatitude)
-        latitude = self.toSexagesimal3D(xy_atan)
+        colatitude = ArithmeticUtil.to_sexagesimal_3d(colatitude)
+        latitude = ArithmeticUtil.to_sexagesimal_3d(xy_atan)
 
         i = 0
 
@@ -129,13 +131,6 @@ class FileManager:
             i += 1
 
         return polar_vectors
-
-    def toSexagesimal3D(self, radians_vector):
-        grades = []
-        for radians in radians_vector:
-            grades.append(180 * radians / math.pi)
-
-        return grades
 
     def getColumnAsArray(self, column_index, matrix):
         column = []

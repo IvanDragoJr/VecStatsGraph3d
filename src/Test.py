@@ -1,12 +1,12 @@
 
-
 # load data from file
 from src.FileManager import FileManager
-from src.graphs.DrawDensity import DrawDensity
+from src.graphs.DensityGraph import DensityGraph
+from src.graphs.ModuleAngleGraph import ModuleAngleGraph
 
 fileManager = FileManager()
 fileManager.load_data()
 dat = fileManager.loadData3D(fileManager.get_vectorsMatrix())
-draw_density = DrawDensity()
 
-draw_density.draw_density_graph(dat)
+# DensityGraph.draw_density_graph(dat)
+ModuleAngleGraph.draw_module_angle_distrib(dat)

@@ -10,9 +10,10 @@ from src.FileManager import FileManager
 from src.util.DrawUtil import DrawUtil
 
 
-class DrawDensity:
+class DensityGraph:
 
-    def draw_density_graph(self, dat):
+    @staticmethod
+    def draw_density_graph(dat):
         # define 3d plot
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
