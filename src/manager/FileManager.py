@@ -30,17 +30,17 @@ class FileManager:
         self.__fixedVectorsMatrix = fixedVectorMatrix
 
     def load_data(self):
-        path = '/home/pedro/PycharmProjects/test2.7/test/XYZcoor.txt'
+        path = '/home/pedro/PycharmProjects/VecStatsGraph3d/test/XYZcoor.txt'
 
-        vectorsArray = []
+        vectors_array = []
 
         with open(path) as f:
             for line in f:
                 for coordinate in line.split():
-                    vectorsArray.append(float(coordinate))
+                    vectors_array.append(float(coordinate))
 
-                self.get_vectorsMatrix().append(np.array(vectorsArray))
-                vectorsArray = []
+                self.get_vectorsMatrix().append(np.array(vectors_array))
+                vectors_array = []
 
 
     def transformData(self, vectorsMatrix):
