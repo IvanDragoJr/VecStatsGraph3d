@@ -1,5 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib as mpl
+#needed to avoid plot projection error
+from mpl_toolkits.mplot3d.axes3d import Axes3D
 
 from src.util.ArithmeticUtil import ArithmeticUtil
 from src.util.DrawUtil import DrawUtil
@@ -14,6 +17,7 @@ class ModuleAngleGraph:
         y = np.array([row[4] for row in dat])
         z = np.array([row[5] for row in dat])
 
+        mpl._get_configdir()
         R = np.math.sqrt((np.sum(x) * np.sum(x)) + (np.sum(y) * np.sum(y)) + (np.sum(z) * np.sum(z)))
 
         meanX = np.sum(x) / R
@@ -40,11 +44,29 @@ class ModuleAngleGraph:
 
         Az = meanModule * np.math.cos(ArithmeticUtil.to_radian(meanDirection[0]))
 
+        w = 80
+        h = 60
+
         # define 3d plot
-        fig = plt.figure()
+        fig = plt.figure(frameon=False)
+        fig.set_size_inches(w, h)
+
         ax = fig.add_subplot(111, projection='3d')
         DrawUtil.draw_sphere(module[0], 0.08, 0, ax)
         DrawUtil.draw_axis_vectors(module[0], 0.1, ax)
 
+
         ax.quiver(0, 0, 0, x, y, z, arrow_length_ratio=0.01)
+        ax.set_xlim(-10, 10)
+        ax.set_ylim(-10, 10)
+        ax.set_zlim(-10, 10)
+
+        # fig, ax = plt.subplots(num=None, figsize=(16, 12), dpi=80, facecolor='w', edgecolor='k')
+
+        manager = plt.get_current_fig_manager()
+        manager.window.showMaximized()
+
+        fig.savefig("test123.svg")
+
         plt.show()
+
