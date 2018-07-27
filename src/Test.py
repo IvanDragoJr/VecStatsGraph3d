@@ -1,7 +1,7 @@
 
 # load data from file
-from src.FileManager import FileManager
 from src.graphs.DensityGraph import DensityGraph
+from src.manager.FileManager import FileManager
 from src.graphs.ModuleAngleGraph import ModuleAngleGraph
 
 fileManager = FileManager()
