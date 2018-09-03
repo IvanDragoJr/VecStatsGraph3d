@@ -51,8 +51,71 @@ class ArithmeticUtil:
         else:
             return radians * 180 / np.math.pi
 
-
     @staticmethod
     def to_radian(grades):
-        radians = (grades/180 * np.math.pi)
+        radians = (grades / 180 * np.math.pi)
         return radians
+
+    @staticmethod
+    def number_of_elements(dat):
+        return len(dat)
+
+    @staticmethod
+    def max_value(dat):
+        return max(dat)
+
+    @staticmethod
+    def min_value(dat):
+        return min(dat)
+
+    @staticmethod
+    def range(dat):
+        element_range = ArithmeticUtil.max_value(dat) - ArithmeticUtil.min_value(dat)
+        if element_range < 0:
+            element_range = element_range * -1
+
+        return element_range
+
+    @staticmethod
+    def module_sum(dat):
+        return np.math.fsum(dat)
+
+    @staticmethod
+    def standard_error(dat):
+        m_arit = ArithmeticUtil.arithmetic_mean(dat)
+        n      = ArithmeticUtil.number_of_elements(dat)
+        return np.math.sqrt(np.math.fsum(dat - m_arit)**2) / (n*(n-1))
+        #todo
+        # m_arit = ArithmeticMean3D(modules)
+        # n = NumberOfElements3D(modules)
+        # return (sqrt((sum((modules - m_arit) ^ 2)) / (n * (n - 1))))
+
+    @staticmethod
+    def module_variance(dat):
+        m_arit = ArithmeticUtil.arithmetic_mean(dat)
+        n = ArithmeticUtil.number_of_elements(dat)
+        return np.math.fsum(((dat - m_arit)**2) / (n-1))
+        # m_arit = ArithmeticMean3D(modules)
+        # n = NumberOfElements3D(modules)
+        # return ((sum((modules - m_arit) ^ 2)) / (n - 1))
+
+    @staticmethod
+    def module_derivation_standard_deviation(dat):
+        #todo
+        return 0
+
+    @staticmethod
+    def module_population_variance(dat):
+        #todo
+        return 0
+
+    @staticmethod
+    def skewness_module_coefficient(dat):
+        #todo
+        return 0
+
+    @staticmethod
+    def kurtois_module_coefficient(dat):
+        #todo
+        return 0
+

@@ -38,5 +38,5 @@ class DensityGraph:
         # draw density fields
         ax.scatter(x, y, z, c=density)
 
-        # plt.axis('off')
+        plt.axis('off')
         plt.show()

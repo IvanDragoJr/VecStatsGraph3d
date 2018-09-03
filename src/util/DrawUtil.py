@@ -34,14 +34,21 @@ class DrawUtil:
         x_sphere = max_coordinates * np.outer(np.cos(u), np.sin(v))
         y_sphere = max_coordinates * np.outer(np.sin(u), np.sin(v))
         z_sphere = max_coordinates * np.outer(np.ones(np.size(u)), np.cos(v))
-        ax.plot_surface(x_sphere,
-                        y_sphere,
-                        z_sphere,
-                        rstride=4,
-                        cstride=4,
-                        color='none',
-                        linewidth=line_width,
-                        alpha=alpha)
+        # ax.plot_surface(x_sphere,
+        #                 y_sphere,
+        #                 z_sphere,
+        #                 rstride=4,
+        #                 cstride=4,
+        #                 color='none',
+        #                 linewidth=line_width,
+        #                 alpha=alpha)
+
+        # draw sphere
+        u, v = np.mgrid[0:2 * np.pi:20j, 0:np.pi:10j]
+        x = np.cos(u) * np.sin(v)
+        y = np.sin(u) * np.sin(v)
+        z = np.cos(v)
+        ax.plot_wireframe(x_sphere, y_sphere, z_sphere, color="b", alpha=alpha)
 
     @staticmethod
     def draw_axis_vectors(margin, head_ratio, ax):
@@ -56,8 +63,9 @@ class DrawUtil:
 
         OX, OY, OZ, OU, OV, OW = zip(*soa)
         ax.set_aspect('equal')
-        ax.quiver(OX, OY, OZ, OU, OV, OW, arrow_length_ratio=head_ratio)
-
-
+        ax.quiver(OX, OY, OZ, OU, OV, OW, arrow_length_ratio=head_ratio, color="k")
+        ax.text(margin, 0, 1, "X", color='red')
+        ax.text(0, margin, 1, "Y", color='red')
+        ax.text(1, 0, margin, "Z", color='red')
 
 

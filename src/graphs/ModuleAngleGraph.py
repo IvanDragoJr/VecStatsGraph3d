@@ -52,11 +52,15 @@ class ModuleAngleGraph:
         fig.set_size_inches(w, h)
 
         ax = fig.add_subplot(111, projection='3d')
-        DrawUtil.draw_sphere(module[0], 0.08, 0, ax)
-        DrawUtil.draw_axis_vectors(module[0], 0.1, ax)
+        max_x = ArithmeticUtil.max_value(x)
+        max_y = ArithmeticUtil.max_value(y)
+        max_z = ArithmeticUtil.max_value(z)
+        max_absolute = max(max_x, max_y, max_z)
+        DrawUtil.draw_sphere(max_absolute*2.5, 0.08, 0, ax)
+        DrawUtil.draw_axis_vectors(max_absolute*2.5, 0.05, ax)
 
 
-        ax.quiver(0, 0, 0, x, y, z, arrow_length_ratio=0.01)
+        ax.quiver(0, 0, 0, x, y, z, arrow_length_ratio=0.01, linewidths=0.222)
         ax.set_xlim(-10, 10)
         ax.set_ylim(-10, 10)
         ax.set_zlim(-10, 10)
@@ -65,8 +69,8 @@ class ModuleAngleGraph:
 
         manager = plt.get_current_fig_manager()
         manager.window.showMaximized()
-
-        fig.savefig("test123.svg")
+        plt.axis('off')
+        fig.savefig("test1234.svg")
 
         plt.show()
 
