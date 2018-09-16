@@ -1,4 +1,5 @@
 import numpy as np
+from scipy import stats
 
 
 class ArithmeticUtil:
@@ -82,40 +83,67 @@ class ArithmeticUtil:
 
     @staticmethod
     def standard_error(dat):
-        m_arit = ArithmeticUtil.arithmetic_mean(dat)
-        n      = ArithmeticUtil.number_of_elements(dat)
-        return np.math.sqrt(np.math.fsum(dat - m_arit)**2) / (n*(n-1))
-        #todo
-        # m_arit = ArithmeticMean3D(modules)
-        # n = NumberOfElements3D(modules)
-        # return (sqrt((sum((modules - m_arit) ^ 2)) / (n * (n - 1))))
+        """ TESTED
+        """
+        return stats.sem(dat)
 
     @staticmethod
     def module_variance(dat):
+        """ TEST SMALL ERROR
+        """
         m_arit = ArithmeticUtil.arithmetic_mean(dat)
         n = ArithmeticUtil.number_of_elements(dat)
-        return np.math.fsum(((dat - m_arit)**2) / (n-1))
-        # m_arit = ArithmeticMean3D(modules)
-        # n = NumberOfElements3D(modules)
-        # return ((sum((modules - m_arit) ^ 2)) / (n - 1))
+        return np.math.fsum(((dat - m_arit) ** 2)) / (n - 1)
 
     @staticmethod
-    def module_derivation_standard_deviation(dat):
-        #todo
-        return 0
+    def module_standard_deviation(dat):
+        """ TEST SMALL ERROR
+                """
+        m_arit = ArithmeticUtil.arithmetic_mean(dat)
+        n = ArithmeticUtil.number_of_elements(dat)
+        return np.math.sqrt((np.math.fsum((dat - m_arit) ** 2)) / (n - 1))
 
     @staticmethod
     def module_population_variance(dat):
-        #todo
-        return 0
+        """ TEST SMALL ERROR
+        """
+        m_arit = ArithmeticUtil.arithmetic_mean(dat)
+        n = ArithmeticUtil.number_of_elements(dat)
+        return sum(((dat - m_arit) ** 2)) / n
+
+    @staticmethod
+    def module_population_standard_deviation(dat):
+        """ TEST SMALL ERROR
+        """
+        m_arit = ArithmeticUtil.arithmetic_mean(dat)
+        n = ArithmeticUtil.number_of_elements(dat)
+        return np.math.sqrt((np.math.fsum((dat - m_arit)**2))/n)
 
     @staticmethod
     def skewness_module_coefficient(dat):
-        #todo
-        return 0
+        """ TEST SMALL ERROR
+        """
+        n = ArithmeticUtil.number_of_elements(dat)
+        mean = ArithmeticUtil.arithmetic_mean(dat)
+        s = ArithmeticUtil.module_standard_deviation(dat)
+        return (n / float(((n - 1) * (n - 2)))) * np.math.fsum(((dat - mean) / s) ** 3)
+
 
     @staticmethod
     def kurtois_module_coefficient(dat):
-        #todo
-        return 0
+        """ TEST STRANGE ERROR
+        """
+        dat = [1, 2, 3, 4, 5, 6, 5, 4, 30, 2, 1]
+
+        n = ArithmeticUtil.number_of_elements(dat)
+        mean = ArithmeticUtil.arithmetic_mean(dat)
+        s = ArithmeticUtil.module_standard_deviation(dat)
+
+        a = (n * (n+1)) / float(((n - 1) * (n - 2) * (n - 3)))
+        b = sum(((dat - mean) / float(s))**4)
+        c = (3 * (n-1)**2) / float(((n-2) * (n-3)))
+        return ((a *
+                 b) -
+                c)
+
 
