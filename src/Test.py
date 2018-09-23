@@ -8,8 +8,8 @@ from src.util.ArithmeticUtil import ArithmeticUtil
 
 
 fileManager = FileManager()
-fileManager.load_data()
-dat = fileManager.loadData3D(fileManager.get_vectorsMatrix())
+fileManager.read_file()
+dat = fileManager.load_data(fileManager.get_vectorsMatrix())
 
 moduleStatisticsManager = ModuleStatisticsManager()
 # DensityGraph.draw_density_graph(dat)
