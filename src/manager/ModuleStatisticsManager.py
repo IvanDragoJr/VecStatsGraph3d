@@ -44,7 +44,6 @@ class ModuleStatisticsManager:
     def kurtois_module_coefficient(self, dat):
         """ TEST STRANGE ERROR
         """
-        dat = [1, 2, 3, 4, 5, 6, 5, 4, 30, 2, 1]
 
         n = ArithmeticUtil.number_of_elements(dat)
         mean = ArithmeticUtil.arithmetic_mean(dat)

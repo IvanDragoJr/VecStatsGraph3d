@@ -29,7 +29,7 @@ class FileManager:
     def set_fixedVectorMatrix(self, fixedVectorMatrix):
         self.__fixedVectorsMatrix = fixedVectorMatrix
 
-    def load_data(self):
+    def read_file(self):
         path = '/home/pedro/PycharmProjects/VecStatsGraph3d/test/XYZcoor.txt'
 
         vectors_array = []
@@ -54,7 +54,7 @@ class FileManager:
                            float(vector.__getitem__(5)) - float(vector.__getitem__(2))]
             self.get_fixedVectorsMatrix().append(fixedVector)
 
-    def loadData3D(self, vectors_matrix):
+    def load_data(self, vectors_matrix):
         data = []
         axis_inc = self.calculateAxisIncrementVector(vectors_matrix)
         polar_vectors = self.calculatePolarFormVector(axis_inc)
@@ -139,3 +139,4 @@ class FileManager:
                 if i == column_index:
                     column.append(vector[i])
         return column
+

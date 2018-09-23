@@ -4,6 +4,7 @@ import matplotlib as mpl
 #needed to avoid plot projection error
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 
+from src.manager.AngleStatisticsManager import AngleStatisticsManager
 from src.util.ArithmeticUtil import ArithmeticUtil
 from src.util.DrawUtil import DrawUtil
 
@@ -12,6 +13,7 @@ class ModuleAngleGraph:
 
     @staticmethod
     def draw_module_angle_distrib(dat):
+        angle_statistics_manager = AngleStatisticsManager
         module = np.array([row[0] for row in dat])
         x = np.array([row[3] for row in dat])
         y = np.array([row[4] for row in dat])
@@ -25,7 +27,7 @@ class ModuleAngleGraph:
         meanZ = np.sum(z) / R
 
         meanModule = ArithmeticUtil.arithmetic_mean(module)
-        meanDirection = ArithmeticUtil.mean_direction(x, y, z)
+        meanDirection = angle_statistics_manager.mean_direction(x, y, z)
 
         if meanDirection[0] < 0:
             meanDirection[0] = meanDirection[0] + 180
