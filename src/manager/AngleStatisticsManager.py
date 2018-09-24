@@ -75,5 +75,27 @@ class AngleStatisticsManager:
 
         return parameter
 
+    def spherical_error(self, coordinates_matrix):
+        x = coordinates_matrix[:, 0]
+        y = coordinates_matrix[:, 1]
+        z = coordinates_matrix[:, 2]
+        n_elements = len(x)
 
-    # sphericalErr < - SphericalStandardError3D(unit_incr)
+        if n_elements >= 25:
+            r = np.math.sqrt((np.sum(x) * np.sum(x)) + (np.sum(y) * np.sum(y)) + (np.sum(z) * np.sum(z)))
+            mean_x = np.sum(x) / float(r)
+            mean_y = np.sum(y) / float(r)
+            mean_z = np.sum(z) / float(r)
+            x = x * mean_x
+            y = y * mean_y
+            z = y * mean_y
+            sum = x + y + z
+            sum2 = sum ** 2
+            d = 1 - (1/float(n_elements) * sum2)
+            Mm = self.mean_module(coordinates_matrix)
+            sigma = np.math.sqrt(abs(d / float(n_elements * Mm * Mm)))
+            ea = np.math.log(0.05)
+            Q = np.math.asin(sigma * np.math.sqrt(ea))
+            Q = ArithmeticUtil.to_sexagesimal_3d(Q)
+
+            return Q
