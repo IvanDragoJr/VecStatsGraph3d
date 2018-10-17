@@ -7,9 +7,10 @@ from src.util.VectorUtil import VectorUtil
 class AngleStatisticsManager:
 
     def mean_direction(self, coordinates_matrix):
-        x = coordinates_matrix[:, 0]
-        y = coordinates_matrix[:, 1]
-        z = coordinates_matrix[:, 2]
+        x = np.array([row[3] for row in coordinates_matrix])
+        y = np.array([row[4] for row in coordinates_matrix])
+        z = np.array([row[5] for row in coordinates_matrix])
+
         mean = []
         n_elements = len(x)
         r = np.math.sqrt((np.sum(x) * np.sum(x)) + (np.sum(y) * np.sum(y)) + (np.sum(z) * np.sum(z)))
@@ -52,7 +53,7 @@ class AngleStatisticsManager:
 
     def real_mod_to_unit_mod(self, coordinates_matrix):
         x = coordinates_matrix[:, 0]
-        y = coordinates_matrix[:, 1]
+        y = coordinates_matrix[:,    1]
         z = coordinates_matrix[:, 2]
         n_elements = len(x)
         polar_values = VectorUtil.vector_to_polar(coordinates_matrix)

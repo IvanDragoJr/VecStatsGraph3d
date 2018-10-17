@@ -13,11 +13,13 @@ class ModuleAngleGraph:
 
     @staticmethod
     def draw_module_angle_distrib(dat):
-        angle_statistics_manager = AngleStatisticsManager
+        angle_statistics_manager = AngleStatisticsManager()
         module = np.array([row[0] for row in dat])
         x = np.array([row[3] for row in dat])
         y = np.array([row[4] for row in dat])
         z = np.array([row[5] for row in dat])
+
+        coord_vectors = [x, y, z]
 
         mpl._get_configdir()
         R = np.math.sqrt((np.sum(x) * np.sum(x)) + (np.sum(y) * np.sum(y)) + (np.sum(z) * np.sum(z)))
@@ -27,7 +29,7 @@ class ModuleAngleGraph:
         meanZ = np.sum(z) / R
 
         meanModule = ArithmeticUtil.arithmetic_mean(module)
-        meanDirection = angle_statistics_manager.mean_direction(x, y, z)
+        meanDirection = angle_statistics_manager.mean_direction(coord_vectors)
 
         if meanDirection[0] < 0:
             meanDirection[0] = meanDirection[0] + 180

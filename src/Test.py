@@ -13,5 +13,5 @@ dat = fileManager.load_data(fileManager.get_vectorsMatrix())
 
 moduleStatisticsManager = ModuleStatisticsManager()
 # DensityGraph.draw_density_graph(dat)
-# ModuleAngleGraph.draw_module_angle_distrib(dat)
-moduleStatisticsManager.kurtois_module_coefficient(fileManager.getColumnAsArray(0, dat))
+ModuleAngleGraph.draw_module_angle_distrib(dat)
+# moduleStatisticsManager.kurtois_module_coefficient(fileManager.getColumnAsArray(0, dat))
