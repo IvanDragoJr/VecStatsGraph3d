@@ -1,7 +1,7 @@
 import numpy as np
 
-from src.util.ArithmeticUtil import ArithmeticUtil
-from src.util.VectorUtil import VectorUtil
+from VecStatsGraph.util.ArithmeticUtil import ArithmeticUtil
+from VecStatsGraph.util.VectorUtil import VectorUtil
 
 
 class AngleStatisticsManager:

@@ -1,11 +1,8 @@
 
 # load data from file
-from src.graphs.DensityGraph import DensityGraph
-from src.manager.FileManager import FileManager
-from src.graphs.ModuleAngleGraph import ModuleAngleGraph
-from src.manager.ModuleStatisticsManager import ModuleStatisticsManager
-from src.util.ArithmeticUtil import ArithmeticUtil
-
+from VecStatsGraph.manager.FileManager import FileManager
+from VecStatsGraph.manager.graphs.ModuleAngleGraph import ModuleAngleGraph
+from VecStatsGraph.manager.ModuleStatisticsManager import ModuleStatisticsManager
 
 fileManager = FileManager()
 fileManager.read_file()

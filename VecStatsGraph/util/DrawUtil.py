@@ -1,6 +1,6 @@
 import numpy as np
 
-from src.util.VectorUtil import VectorUtil
+from VecStatsGraph.util.VectorUtil import VectorUtil
 
 
 class DrawUtil:
