@@ -3,13 +3,12 @@ import numpy as np
 from VecStatsGraph.util.ArithmeticUtil import ArithmeticUtil
 from VecStatsGraph.util.VectorUtil import VectorUtil
 
-
 class AngleStatisticsManager:
 
     def mean_direction(self, coordinates_matrix):
-        x = np.array([row[3] for row in coordinates_matrix])
-        y = np.array([row[4] for row in coordinates_matrix])
-        z = np.array([row[5] for row in coordinates_matrix])
+        x = coordinates_matrix[0]
+        y = coordinates_matrix[1]
+        z = coordinates_matrix[2]
 
         mean = []
         n_elements = len(x)
@@ -41,9 +40,9 @@ class AngleStatisticsManager:
         return mean
 
     def mean_module(self, coordinates_matrix):
-        x = coordinates_matrix[:, 0]
-        y = coordinates_matrix[:, 1]
-        z = coordinates_matrix[:, 2]
+        x = coordinates_matrix[0]
+        y = coordinates_matrix[1]
+        z = coordinates_matrix[2]
         n_elements = len(x)
         r = np.math.sqrt((np.sum(x) * np.sum(x)) + (np.sum(y) * np.sum(y)) + (np.sum(z) * np.sum(z)))
 
@@ -52,14 +51,18 @@ class AngleStatisticsManager:
         return mean_module
 
     def real_mod_to_unit_mod(self, coordinates_matrix):
-        x = coordinates_matrix[:, 0]
-        y = coordinates_matrix[:,    1]
-        z = coordinates_matrix[:, 2]
+        x = coordinates_matrix[0]
+        y = coordinates_matrix[1]
+        z = coordinates_matrix[2]
+
         n_elements = len(x)
+
         polar_values = VectorUtil.vector_to_polar(coordinates_matrix)
         module = [1] * n_elements
-        colatitud = polar_values[:, 1]
-        longitude = polar_values[:, 2]
+        colatitud = self.getColumnAsArray(1, polar_values)
+        longitude = self.getColumnAsArray(2, polar_values)
+        # colatitud = polar_values[:, 1]
+        # longitude = polar_values[:, 2]
 
         u_vector = [module, colatitud, longitude]
         unit_incr = VectorUtil.vectors_to_rectangular(u_vector)
@@ -67,9 +70,9 @@ class AngleStatisticsManager:
         return unit_incr
 
     def concentration_parameter(self, coordinates_matrix):
-        x = coordinates_matrix[:, 0]
-        y = coordinates_matrix[:, 1]
-        z = coordinates_matrix[:, 2]
+        x = coordinates_matrix[0]
+        y = coordinates_matrix[1]
+        z = coordinates_matrix[2]
         n_elements = len(x)
         mean_module = self.mean_module(coordinates_matrix)
         parameter = (n_elements - 1) / float((n_elements * (1 - mean_module)))
@@ -77,9 +80,9 @@ class AngleStatisticsManager:
         return parameter
 
     def spherical_error(self, coordinates_matrix):
-        x = coordinates_matrix[:, 0]
-        y = coordinates_matrix[:, 1]
-        z = coordinates_matrix[:, 2]
+        x = coordinates_matrix[0]
+        y = coordinates_matrix[1]
+        z = coordinates_matrix[2]
         n_elements = len(x)
 
         if n_elements >= 25:
@@ -89,14 +92,22 @@ class AngleStatisticsManager:
             mean_z = np.sum(z) / float(r)
             x = x * mean_x
             y = y * mean_y
-            z = y * mean_y
+            z = z * mean_z
             sum = x + y + z
             sum2 = sum ** 2
-            d = 1 - (1/float(n_elements) * sum2)
+            d = 1 - (1/float(n_elements) * np.math.fsum(sum2))
             Mm = self.mean_module(coordinates_matrix)
-            sigma = np.math.sqrt(abs(d / float(n_elements * Mm * Mm)))
-            ea = np.math.log(0.05)
-            Q = np.math.asin(sigma * np.math.sqrt(ea))
+            sigma = np.sqrt(abs(d / float(n_elements * Mm * Mm)))
+            ea = np.log(0.05) *-1
+            Q = np.arcsin(sigma * np.sqrt(ea))
             Q = ArithmeticUtil.to_sexagesimal_3d(Q)
 
             return Q
+
+    def getColumnAsArray(self, column_index, matrix):
+        column = []
+        for vector in matrix:
+            for i in range(len(vector)):
+                if i == column_index:
+                    column.append(vector[i])
+        return column

@@ -5,6 +5,7 @@ import itertools
 import numpy as np
 
 from VecStatsGraph.util.ArithmeticUtil import ArithmeticUtil
+from VecStatsGraph.util.VectorUtil import VectorUtil
 
 
 class FileManager:
@@ -62,22 +63,30 @@ class FileManager:
 
         i = 0
         for polar_element in polar_vectors:
-            vector = [1,
-                      polar_element[0],
-                      polar_element[1],
-                      rectangular_vectors.__getitem__(i)[0],
-                      rectangular_vectors.__getitem__(i)[1],
-                      rectangular_vectors.__getitem__(i)[2],
-                      vectors_matrix[i][0],
-                      vectors_matrix[i][1],
-                      vectors_matrix[i][2],
-                      vectors_matrix[i][3],
-                      vectors_matrix[i][4],
-                      vectors_matrix[i][5]]
+            vector = [VectorUtil.calculate_vector_module(vectors_matrix[i][0],
+                                                         vectors_matrix[i][1],
+                                                         vectors_matrix[i][2],
+                                                         vectors_matrix[i][3],
+                                                         vectors_matrix[i][4],
+                                                         vectors_matrix[i][5]
+                                                         ),    #module
+                      polar_element[0],                      #colatitud
+                      polar_element[1],                      #longitud
+                      rectangular_vectors.__getitem__(i)[0], #Ax
+                      rectangular_vectors.__getitem__(i)[1], #Ay
+                      rectangular_vectors.__getitem__(i)[2], #Az
+                      vectors_matrix[i][0],                  #x0
+                      vectors_matrix[i][1],                  #y0
+                      vectors_matrix[i][2],                  #z0
+                      vectors_matrix[i][3],                  #x1
+                      vectors_matrix[i][4],                  #y1
+                      vectors_matrix[i][5]]                  #z1
             i += 1
             data.append(vector)
 
         return data
+
+
 
 
     def simpleLoad(self):

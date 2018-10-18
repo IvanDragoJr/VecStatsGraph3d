@@ -17,15 +17,18 @@ class VectorUtil:
 
     @staticmethod
     def vectors_to_rectangular(vectors):
-        module    = vectors[:, 0]
-        colatitud = vectors[:, 1]
-        longitude = vectors[:, 2]
+        module    = vectors[0]
+        colatitud = vectors[1]
+        longitude = vectors[2]
 
-        x = np.math.sin(ArithmeticUtil.to_radian(colatitud)) * np.math.cos(ArithmeticUtil.to_radian(longitude)) * module
-        y = np.math.sin(ArithmeticUtil.to_radian(colatitud)) * np.math.sin(ArithmeticUtil.to_radian(longitude)) * module
-        z = np.math.cos(ArithmeticUtil.to_radian(colatitud)) * module
+        radian_colatitude = ArithmeticUtil.to_radian(colatitud)
+        radian_longitude = ArithmeticUtil.to_radian(longitude)
 
-        rectangular_vectors = [x, y, z]
+        x = np.sin(radian_colatitude) * np.cos(radian_longitude) * module
+        y = np.sin(ArithmeticUtil.to_radian(colatitud)) * np.sin(ArithmeticUtil.to_radian(longitude)) * module
+        z = np.cos(ArithmeticUtil.to_radian(colatitud)) * module
+
+        rectangular_vectors = (x, y, z)
         return rectangular_vectors
 
     @staticmethod
@@ -34,26 +37,50 @@ class VectorUtil:
         colatitud = []
         xy_atan = []
         polar_vectors = []
-        for x, y, z in vector_matrix:
+        z = []
+        i = 0
+
+        while i < ArithmeticUtil.number_of_elements(vector_matrix[0]):
+            x = vector_matrix[0][i]
+            y = vector_matrix[1][i]
+            z = vector_matrix[2][i]
             modules_2d.append(np.math.sqrt(x ** 2 + y ** 2))
-            xy_atan.append(np.math.atan(x / y))
+            xy_atan.append(np.arctan(y / x))
+            i +=1
+
         i = 0
 
         for x in modules_2d:
-            z = vector_matrix[i][2]
-            colatitud.append(np.math.atan(x / z))
+            z = vector_matrix[2][i]
+            aux = np.math.atan(x / z)
+            if aux < 0:
+                aux += np.math.pi
+            colatitud.append(aux)
             i += 1
-        # TODO colatitud y latitud negativa
 
         colatitud = ArithmeticUtil.to_sexagesimal_3d(colatitud)
-        latitude = ArithmeticUtil.to_sexagesimal_3d(xy_atan)
+        longitud = ArithmeticUtil.to_sexagesimal_3d(xy_atan)
+
+        fixed_longitud = []
+        for aux in longitud:
+            if aux < 0:
+                aux +=360
+            fixed_longitud.append(aux)
+
 
         i = 0
 
-        for x, y, z in vector_matrix:
+        while i < ArithmeticUtil.number_of_elements(vector_matrix[0]):
+            x = vector_matrix[0][i]
+            y = vector_matrix[1][i]
+            z = vector_matrix[2][i]
             polar_vectors.append([np.math.sqrt(x ** 2 + y ** 2 + z ** 2),
                                   colatitud[i],
-                                  latitude[i]])
+                                  fixed_longitud[i]])
             i += 1
 
         return polar_vectors
+
+    @staticmethod
+    def calculate_vector_module(x, y, z, x1, y1, z1):
+        return np.math.sqrt(((x - x1)**2) + ((y - y1)**2) + ((z-z1)**2))
