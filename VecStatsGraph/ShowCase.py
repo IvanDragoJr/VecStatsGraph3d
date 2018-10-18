@@ -2,9 +2,13 @@ from VecStatsGraph.manager.FileManager import FileManager
 from VecStatsGraph.manager.ModuleStatisticsManager import ModuleStatisticsManager
 from VecStatsGraph.manager.AngleStatisticsManager import AngleStatisticsManager
 from VecStatsGraph.util.ArithmeticUtil import ArithmeticUtil
+from VecStatsGraph.manager.graphs.ModuleAngleGraph import ModuleAngleGraph
+from VecStatsGraph.manager.graphs.DensityGraph import DensityGraph
 
 moduleStatisticsManager = ModuleStatisticsManager()
 angleStatisticsManager = AngleStatisticsManager()
+moduleAngleGraph = ModuleAngleGraph()
+densityGraph = DensityGraph()
 
 fileManager = FileManager()
 fileManager.read_file()
@@ -70,3 +74,6 @@ print("  LONGITUDE                 =", um_direction[0])
 print("  MEAN MODULE               =", um_module)
 print("  CONCENTRATION PARAMETER   =", conc_parameter)
 print("  SPHERICAL STANDARD ERROR  =", sphericalErr)
+
+moduleAngleGraph.draw_module_angle_distrib(dat)
+densityGraph.draw_density_graph(dat)
