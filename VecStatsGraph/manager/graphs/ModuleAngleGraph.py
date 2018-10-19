@@ -49,7 +49,7 @@ class ModuleAngleGraph:
         Az = meanModule * np.math.cos(ArithmeticUtil.to_radian(meanDirection[0]))
 
         w = 80
-        h = 60
+        h = 80
 
         # define 3d plot
         fig = plt.figure(frameon=False)
@@ -60,21 +60,23 @@ class ModuleAngleGraph:
         max_y = ArithmeticUtil.max_value(y)
         max_z = ArithmeticUtil.max_value(z)
         max_absolute = max(max_x, max_y, max_z)
-        DrawUtil.draw_sphere(max_absolute*2.5, 0.08, 0, ax)
-        DrawUtil.draw_axis_vectors(max_absolute*2.5, 0.05, ax)
+
+        DrawUtil.draw_sphere(max_absolute*1.25, 0.08, 0, ax)
+        DrawUtil.draw_axis_vectors(max_absolute*1.25, 0.05, ax)
 
 
-        ax.quiver(0, 0, 0, x, y, z, arrow_length_ratio=0.01, linewidths=0.222)
-        ax.set_xlim(-10, 10)
-        ax.set_ylim(-10, 10)
-        ax.set_zlim(-10, 10)
+        ax.quiver(0, 0, 0, x, y, z, arrow_length_ratio=0.01, linewidths=0.422)
+        ax.set_xlim(max_absolute*-1, max_absolute)
+        ax.set_ylim(max_absolute*-1, max_absolute)
+        ax.set_zlim(max_absolute*-1, max_absolute)
 
         # fig, ax = plt.subplots(num=None, figsize=(16, 12), dpi=80, facecolor='w', edgecolor='k')
 
         manager = plt.get_current_fig_manager()
         manager.window.showMaximized()
         plt.axis('off')
-        fig.savefig("test1234.svg")
+
+        fig.savefig("moduleGraph.svg")
 
         plt.show()
 

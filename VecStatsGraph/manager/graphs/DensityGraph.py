@@ -15,7 +15,11 @@ class DensityGraph:
         # define 3d plot
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
-
+        w = 80
+        h = 80
+        # define 3d plot
+        # fig = plt.figure(frameon=False)
+        fig.set_size_inches(w, h)
         # calculate density fields
         mu, sigma = 0, 0.1
         x = np.array([row[3] for row in dat])
@@ -38,5 +42,14 @@ class DensityGraph:
         # draw density fields
         ax.scatter(x, y, z, c=density)
 
+        ax.set_xlim(margin * -1, margin)
+        ax.set_ylim(margin * -1, margin)
+        ax.set_zlim(margin * -1, margin)
+
+        manager = plt.get_current_fig_manager()
+        manager.window.showMaximized()
         plt.axis('off')
+
+        fig.savefig("densityGraph.svg")
+
         plt.show()
