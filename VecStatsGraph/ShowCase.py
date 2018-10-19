@@ -4,11 +4,13 @@ from VecStatsGraph.manager.AngleStatisticsManager import AngleStatisticsManager
 from VecStatsGraph.util.ArithmeticUtil import ArithmeticUtil
 from VecStatsGraph.manager.graphs.ModuleAngleGraph import ModuleAngleGraph
 from VecStatsGraph.manager.graphs.DensityGraph import DensityGraph
+from VecStatsGraph.manager.graphs.VectorGraph import VectorGraph
 
 moduleStatisticsManager = ModuleStatisticsManager()
 angleStatisticsManager = AngleStatisticsManager()
 moduleAngleGraph = ModuleAngleGraph()
 densityGraph = DensityGraph()
+vectorGraph = VectorGraph
 
 fileManager = FileManager()
 fileManager.read_file()
@@ -77,3 +79,4 @@ print("  SPHERICAL STANDARD ERROR  =", sphericalErr)
 
 moduleAngleGraph.draw_module_angle_distrib(dat)
 densityGraph.draw_density_graph(dat)
+vectorGraph.draw_vector_graph(dat)
