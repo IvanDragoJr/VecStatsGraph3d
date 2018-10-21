@@ -1,8 +1,10 @@
+import os
+
 import numpy as np
 
 from scipy import stats
+from VecStatsGraph.manager.FileManager import FileManager
 import matplotlib.pyplot as plt
-
 
 # read file
 from VecStatsGraph.util.DrawUtil import DrawUtil
@@ -12,6 +14,7 @@ class DensityGraph:
 
     @staticmethod
     def draw_density_graph(dat):
+        fileManager = FileManager()
         # define 3d plot
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
@@ -50,6 +53,11 @@ class DensityGraph:
         manager.window.showMaximized()
         plt.axis('off')
 
-        fig.savefig("densityGraph.svg")
+        path = fileManager.get_output_path_file()
+
+        if path != "":
+            if not os.path.exists(path):
+                os.makedirs(path)
+            fig.savefig(path + "/densityGraph.svg")
 
         plt.show()

@@ -15,7 +15,7 @@ class DrawUtil:
         :return: Double of max value found in three parameters
 
         """
-        margin = max(VectorUtil.find_max(x), VectorUtil.find_max(y), VectorUtil.find_max(z))
+        margin = max(VectorUtil.find_max(abs(x)), VectorUtil.find_max(abs(y)), VectorUtil.find_max(abs(z)))
         margin = margin * 2
         return margin
 

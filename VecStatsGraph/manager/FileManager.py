@@ -1,4 +1,5 @@
 import math
+from __builtin__ import raw_input
 from array import array
 import itertools
 
@@ -30,9 +31,22 @@ class FileManager:
     def set_fixedVectorMatrix(self, fixedVectorMatrix):
         self.__fixedVectorsMatrix = fixedVectorMatrix
 
-    def read_file(self):
-        path = '/home/pedro/PycharmProjects/VecStatsGraph3d/test/XYZcoor.txt'
 
+    def get_input_path_file(self):
+        path = raw_input("Enter coordinates file path: ")
+        return path
+
+    def get_output_path_file(self):
+        path = ""
+        isSaving = raw_input("Do you want to save scene scene image?(s/n): ")
+        if isSaving == "s":
+            path = raw_input("Enter path for image output: ")
+        return path
+
+    def read_file(self):
+
+        # path = '/home/pedro/PycharmProjects/VecStatsGraph3d/test/XYZcoor.txt'
+        path = self.get_input_path_file()
         vectors_array = []
 
         with open(path) as f:

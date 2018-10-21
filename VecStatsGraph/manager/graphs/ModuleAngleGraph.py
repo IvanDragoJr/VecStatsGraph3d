@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib as mpl
@@ -5,6 +7,7 @@ import matplotlib as mpl
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 
 from VecStatsGraph.manager.AngleStatisticsManager import AngleStatisticsManager
+from VecStatsGraph.manager.FileManager import FileManager
 from VecStatsGraph.util.ArithmeticUtil import ArithmeticUtil
 from VecStatsGraph.util.DrawUtil import DrawUtil
 
@@ -13,6 +16,8 @@ class ModuleAngleGraph:
 
     @staticmethod
     def draw_module_angle_distrib(dat):
+        fileManager = FileManager()
+
         angle_statistics_manager = AngleStatisticsManager()
         module = np.array([row[0] for row in dat])
         x = np.array([row[3] for row in dat])
@@ -56,9 +61,9 @@ class ModuleAngleGraph:
         fig.set_size_inches(w, h)
 
         ax = fig.add_subplot(111, projection='3d')
-        max_x = ArithmeticUtil.max_value(x)
-        max_y = ArithmeticUtil.max_value(y)
-        max_z = ArithmeticUtil.max_value(z)
+        max_x = ArithmeticUtil.max_value(abs(x))
+        max_y = ArithmeticUtil.max_value(abs(y))
+        max_z = ArithmeticUtil.max_value(abs(z))
         max_absolute = max(max_x, max_y, max_z)
 
         DrawUtil.draw_sphere(max_absolute*1.25, 0.08, 0, ax)
@@ -76,7 +81,11 @@ class ModuleAngleGraph:
         manager.window.showMaximized()
         plt.axis('off')
 
-        fig.savefig("moduleGraph.svg")
+        path = fileManager.get_output_path_file()
 
+        if path != "":
+            if not os.path.exists(path):
+                os.makedirs(path)
+            fig.savefig(path + "/moduleAngleGraph.svg")
         plt.show()
 

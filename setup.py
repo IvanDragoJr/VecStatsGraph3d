@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='VecStatsGraph3d',
-    version='1.1.0',
+    version='1.3',
     packages=['VecStatsGraph', 'VecStatsGraph.util', 'VecStatsGraph.manager', 'VecStatsGraph.manager.graphs'],
     url='https://github.com/IvanDragoJr/VecStatsGraph3d',
     license='Apache 2.0',
