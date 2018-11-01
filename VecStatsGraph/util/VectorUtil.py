@@ -51,8 +51,8 @@ class VectorUtil:
         i = 0
 
         for x in modules_2d:
-            z = vector_matrix[2][i]
-            aux = np.math.atan(x / z)
+            y = vector_matrix[1][i]
+            aux = np.math.atan(y / x)
             if aux < 0:
                 aux += np.math.pi
             colatitud.append(aux)

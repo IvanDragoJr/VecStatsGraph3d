@@ -56,8 +56,6 @@ class ArithmeticUtil:
 
     @staticmethod
     def standard_error(dat):
-        """ TESTED
-        """
         return stats.sem(dat)
 
 
