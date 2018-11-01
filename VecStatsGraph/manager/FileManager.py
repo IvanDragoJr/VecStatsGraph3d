@@ -102,6 +102,54 @@ class FileManager:
 
 
 
+    def transformFile(self):
+        bounds_file_route = "/home/pedro/PycharmProjects/VecStatsGraph3d/test/bounds.xml"
+        data_file_route   = "/home/pedro/PycharmProjects/VecStatsGraph3d/test/example.xml"
+        transformed_data_file_route   = "/home/pedro/PycharmProjects/VecStatsGraph3d/test/output.txt"
+
+        bounds = {}
+
+        with open(bounds_file_route) as fp:
+            for i, line in enumerate(fp):
+                source = int(line.split()[1])
+                dest = int(line.split()[2])
+                if source not in bounds:
+                    bounds[source] = []
+
+                bounds[source].append(dest)
+
+        print(bounds)
+
+        file = open(transformed_data_file_route, "w")
+
+        xyz = None
+        xyz2 = None
+        line = None
+        i = 1
+
+        with open(data_file_route) as fp:
+            for i, line in enumerate(fp):
+                if i in bounds:
+                    xyz = line
+                    with open(data_file_route) as fp2:
+                        for j, line2 in enumerate(fp2):
+                            for x in bounds[i]:
+                                if j == x:
+                                  xyz2 = line2
+                                if xyz is not None and xyz2 is not None:
+                                    new_line = xyz + xyz2
+                                    new_line = str.replace(new_line, "\n", "")
+                                    file.write(new_line + "\n")
+                                    xyz2 = None
+
+                        # item = [x for x in bounds[i] if i+j in x]
+                        # xyz2 = item
+                        # if j+i == bounds[i]:
+                        #     xyz2 = line2
+
+
+        file.close()
+
 
     def simpleLoad(self):
         path = '/home/pedro/PycharmProjects/test2.7/test/XYZcoor.txt'
@@ -133,12 +181,12 @@ class FileManager:
         polar_vectors = []
         for x, y, z in incremental_vectors:
             modules_2d.append(math.sqrt(x ** 2 + y ** 2))
-            xy_atan.append(math.atan(x / y))
+            xy_atan.append(float(math.atan(y / x)))
         i = 0
 
         for x in modules_2d:
             z = incremental_vectors[i][2]
-            colatitude.append(math.atan(x / z))
+            colatitude.append(float(math.atan(y / x)))
             i += 1
         # TODO colatitud y latitud negativa
 
